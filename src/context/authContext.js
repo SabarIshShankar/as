@@ -50,7 +50,7 @@ const AuthProvider = ({children}) => {
   }
 
   return <Provider value={{
-    authStorage, setStorage, signOut
+    authState, setStorage, signOut
   }}>{children}</Provider>
 }
 
