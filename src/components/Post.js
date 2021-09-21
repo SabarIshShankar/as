@@ -68,9 +68,19 @@ const Post = ({
 
 
   return(
-    <View>
-        
-    </View>
+    <View as={SafeAreaView} style={[styles.container,
+      {backgroundColor: colors.bgColor, borderColor: colors.postBorder}]}>
+         <View styles={styles.headerContainer}>
+         <View styles={styles.headerLeft}>
+         <Text style={[styles.regularFont, {
+           color: colors.text
+         }]}>{category}</Text>
+         <Text style={[{color: colors.blue}]}
+         onPress={() => navigation.navigate('User', {username: author.username})}>@{author?.username}·{' '}</Text>
+         <Text style={[styles.dateText, {color: colors.text}]}>{moment(created).fromNow()}</Text>
+         </View>
+         </View>
+     </View>
   )
 }
 
