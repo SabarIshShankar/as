@@ -106,7 +106,7 @@ const Post = ({
         </TouchableOpacity>
 
 
-        <Text> style={[styles.score, {color: colors.text}]}>{score}</Text>
+        <Text style={[styles.score, {color: colors.text}]}>{score}</Text>
 
         <TouchableOpacity onPress={() => (isDownVoted() ? unVote():downVote())}>
         <ArrowDown width={22}
