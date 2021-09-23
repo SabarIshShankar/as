@@ -28,7 +28,7 @@ const TypeSwitchButton = ({ selected, onClick, type }) => {
     onPress={() => onClick('type', type)}>
     <View>
     <Text style={[
-      style.typeButtonLabel,
+      styles.typeButtonLabel,
       {color: colors.text},
       selected === type ? {color: 'white'}:''
     ]}>{type}</Text>
@@ -44,7 +44,7 @@ const CreatePost = () => {
   const [message, setMessage] = React.useState(null)
   const fadeAnim = React.useRef(new Animated.value(0).current)
 
-  const faceIn = () => {
+  const fadeIn = () => {
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 2000,
@@ -67,7 +67,7 @@ const CreatePost = () => {
       url: '',
       text: ''
     }} 
-    onSubmit={async(value, {setStatus, resetForm}) => {
+    onSubmit={async(values, {setStatus, resetForm}) => {
       setIsLoading(true)
       try{
         await axios.post('posts', values)
@@ -140,7 +140,7 @@ const CreatePost = () => {
       )}
       </View>
 
-      <TexInput style={[styles.textInput,
+      <TextInput style={[styles.textInput,
       {borderColor: colors.border, color: colors.text,
       height: 40},
       touched.title && errors.title && {borderColor: colors.red}]}
@@ -211,9 +211,87 @@ const CreatePost = () => {
 
 
 const styles = StyleSheet.create({
-  
+  container: {
+    flex: 1,
+    paddingHorizontal: 15,
+    paddingVertical: 7
+  },
+  typeContainer: {
+    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom: 10
+  },
+  typeButton: {
+    flex: 0.5,
+    justifyContent: 'center',
+    height: 30,
+    borderWidth: 1
+  },
+  typeButtonLeft: {
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10
+  },
+  typeButtonRight: {
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10
+  },
+  typeButtonLabel: {
+    textAlign: 'center',
+    texTransform: 'capitalize',
+    fontFamily: 'fff'
+  },
+  textInput: {
+    borderWidth: 1,
+    textAlignVertical: 'top',
+    marginTop: 5,
+    paddingLeft: 10
+
+  },
+  submitButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    height: 40,
+    borderRadius: 10,
+    flex: 0.4
+  },
+  formLabel: {
+    fontSize: 16
+  },
+  buttonContainer: {
+    marginTop: 30,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  submitButtonText: {
+    color: 'white',
+    fontSize: 15
+  },
+  status: {
+    color: 'red',
+    marginVertical: 15,
+    fontSize: 15,
+    textAlign: 'center'
+  },
+  errorMessage: {
+    color: 'red',
+    marginHorizontal: 10,
+    fontSize: 15
+  },
+  flexRow: {
+    flexDirection: 'row',
+    marginop: 15
+  },
+  message: {
+    color: '#5b715d',
+    marginVertical: 15,
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+    padding: 10,
+    borderRadius: 10
+  }
 })
 
-
-
-
+export default CreatePost
