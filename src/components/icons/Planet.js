@@ -1,5 +1,5 @@
 import * as React from 'react';
-import svg, {Circle, Path, G} from 'react-native-svg'
+import Svg, {Circle, Path, G} from 'react-native-svg'
 
 function SvgPlanet(props){
   return(
