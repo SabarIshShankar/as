@@ -57,7 +57,62 @@ const CreatePost = () => {
   }
 
   return (
-    
+    <ScrollView as={SafeAreaView} 
+    style={[styles.container,
+    {backgroundColor: colors.bgColor}]}>
+    <Formik initialValues={{
+      type: 'text',
+      category: '',
+      title: '',
+      url: '',
+      text: ''
+    }} 
+    onSubmit={async(value, {setStatus, resetForm}) => {
+      setIsLoading(true)
+      try{
+        await axios.post('posts', values)
+        resetForm({...values, type: 'text'})
+        setMessage('created')
+        fadeIn()
+      } catch(error){
+        setStatus(error.response.data.message)
+      }
+      setIsLoading(false)
+    }}
+    validationSchema={Yup.object({
+      type: Yup.mixed().oneOf(['text', 'link']),
+      categor: Yup.string().required('Required'),
+      title: Yup.string()
+        .required('Required')
+        .max(100, 'Must be at most 100 chars long'),
+      text: Yup.string().when('type', {
+        is: 'text',
+        then: Yup.string()
+          .required('Required')
+          .min(4, 'Must be at least 4 characters long')
+      }),
+      url: Yup.string().when('type',{
+        us: 'link',
+        then: Yup.string()
+          .required('Required')
+          .url('Inavlid url')
+      })
+    })}
+    >
+    {({
+      handleChange, handleBlur, handleSubmit, touched, errors,
+      status, values, setFieldValue
+    }) => (
+      <View>
+      {message && (
+        <Animated.View style={{opacity: fadeAnim}}>
+        {!!message && <Text style={styles.message}>{message}</Text>}
+        </Animated.View>
+      )}
+      </View>
+    )}
+    </Formik>
+    </ScrollView>
   )
 }
 
